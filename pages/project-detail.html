@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Проект: Разработка CRM системы | Project Collab Hub</title>
+    
+    <!-- SEO Meta -->
+    <meta name="description" content="Проект по разработке CRM системы с бюджетом от 300 000 ₽. Требуются PHP разработчики и специалисты по базам данных.">
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="cyber-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-glow">◈</span>
+                <span class="logo-text">PROJECT<span class="accent">COLLAB</span>HUB</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">ГЛАВНАЯ</a>
+                <a href="projects.html" class="nav-link active">ПРОЕКТЫ</a>
+                <a href="kanban.html" class="nav-link">KANBAN</a>
+                <a href="security-lab.html" class="nav-link">БЕЗОПАСНОСТЬ</a>
+                <a href="seo-dashboard.html" class="nav-link">SEO</a>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="btn-ghost" onclick="openModal('login')">
+                    <i class="fas fa-user-shield"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="project-detail-page">
+        <div class="container">
+            <!-- Хлебные крошки -->
+            <div class="breadcrumbs">
+                <a href="../index.html">Главная</a>
+                <i class="fas fa-chevron-right"></i>
+                <a href="projects.html">Проекты</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Разработка CRM системы</span>
+            </div>
+
+            <div class="project-detail-grid">
+                <!-- Основная информация -->
+                <div class="project-main">
+                    <div class="project-header">
+                        <h1 class="project-title">Разработка CRM системы для управления клиентами</h1>
+                        
+                        <div class="project-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-tag"></i>
+                                <span>Категория: <strong>Разработка</strong></span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-clock"></i>
+                                <span>Опубликован: <strong>15 марта 2026</strong></span>
+                            </div>
+                            <div class="meta-item">
+                                <i class="fas fa-eye"></i>
+                                <span>Просмотров: <strong>234</strong></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-section">
+                        <h2>Описание проекта</h2>
+                        <div class="project-description">
+                            <p>Требуется разработать CRM систему для управления клиентами и задачами. Основной функционал:</p>
+                            <ul>
+                                <li>Ведение базы клиентов с историей взаимодействий</li>
+                                <li>Учет звонков и интеграция с телефонией (через API)</li>
+                                <li>Постановка и отслеживание задач</li>
+                                <li>Отчеты и аналитика</li>
+                                <li>Интеграция с email-рассылками</li>
+                                <li>Ролевая модель доступа (админ, менеджер, сотрудник)</li>
+                            </ul>
+                            <p>Проект должен быть выполнен на PHP (Laravel) с использованием MySQL. Интерфейс - современный, адаптивный. Требуется разработать как веб-версию, так и API для мобильного приложения.</p>
+                        </div>
+                    </div>
+
+                    <div class="project-section">
+                        <h2>Требуемые навыки</h2>
+                        <div class="skills-list">
+                            <span class="skill-tag large">PHP</span>
+                            <span class="skill-tag large">Laravel</span>
+                            <span class="skill-tag large">MySQL</span>
+                            <span class="skill-tag large">JavaScript</span>
+                            <span class="skill-tag large">REST API</span>
+                            <span class="skill-tag large">Git</span>
+                        </div>
+                    </div>
+
+                    <div class="project-section">
+                        <h2>Этапы работы</h2>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <h4>Этап 1: Проектирование</h4>
+                                    <p>Разработка ТЗ, прототипов интерфейса, структуры БД</p>
+                                    <span class="timeline-budget">50 000 ₽</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <h4>Этап 2: Разработка бэкенда</h4>
+                                    <p>Реализация API, бизнес-логики, интеграций</p>
+                                    <span class="timeline-budget">150 000 ₽</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <h4>Этап 3: Фронтенд</h4>
+                                    <p>Разработка интерфейса, интеграция с API</p>
+                                    <span class="timeline-budget">100 000 ₽</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-marker"></div>
+                                <div class="timeline-content">
+                                    <h4>Этап 4: Тестирование и запуск</h4>
+                                    <p>QA, исправление багов, деплой</p>
+                                    <span class="timeline-budget">50 000 ₽</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Сайдбар -->
+                <div class="project-sidebar">
+                    <div class="sidebar-card budget-card">
+                        <h3>Бюджет проекта</h3>
+                        <div class="budget-amount">350 000 - 400 000 ₽</div>
+                        <div class="budget-type">Фиксированный</div>
+                        
+                        <div class="deadline-info">
+                            <i class="fas fa-calendar-alt"></i>
+                            <div>
+                                <span class="label">Дедлайн</span>
+                                <span class="value">30 мая 2026</span>
+                            </div>
+                        </div>
+                        
+                        <button class="btn-primary btn-block" onclick="applyToProject()">
+                            <i class="fas fa-paper-plane"></i>
+                            ОТКЛИКНУТЬСЯ
+                        </button>
+                        
+                        <button class="btn-ghost btn-block" onclick="saveProject()">
+                            <i class="fas fa-bookmark"></i>
+                            СОХРАНИТЬ
+                        </button>
+                    </div>
+
+                    <div class="sidebar-card client-card">
+                        <h3>Заказчик</h3>
+                        <div class="client-info">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Алексей Петров" class="client-avatar">
+                            <div class="client-details">
+                                <h4>Алексей Петров</h4>
+                                <p>ООО "ТехноСтарт"</p>
+                                <div class="client-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <span>4.8</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="client-stats">
+                            <div class="stat">
+                                <span class="value">12</span>
+                                <span class="label">Проектов</span>
+                            </div>
+                            <div class="stat">
+                                <span class="value">11</span>
+                                <span class="label">Завершено</span>
+                            </div>
+                            <div class="stat">
+                                <span class="value">95%</span>
+                                <span class="label">Успешно</span>
+                            </div>
+                        </div>
+                        
+                        <button class="btn-ghost btn-block" onclick="contactClient()">
+                            <i class="fas fa-envelope"></i>
+                            СВЯЗАТЬСЯ
+                        </button>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3>Поделиться</h3>
+                        <div class="share-links">
+                            <a href="#" class="share-link telegram"><i class="fab fa-telegram"></i></a>
+                            <a href="#" class="share-link whatsapp"><i class="fab fa-whatsapp"></i></a>
+                            <a href="#" class="share-link vk"><i class="fab fa-vk"></i></a>
+                            <a href="#" class="share-link linkedin"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Похожие проекты -->
+            <div class="similar-projects">
+                <h2>Похожие проекты</h2>
+                <div class="projects-grid">
+                    <!-- Карточки похожих проектов -->
+                    <div class="project-card" onclick="viewProject(2)">
+                        <div class="project-header">
+                            <h3>Разработка интернет-магазина</h3>
+                            <div class="project-budget">250 000 - 300 000 ₽</div>
+                        </div>
+                        <div class="project-body">
+                            <p class="project-description">Требуется разработать интернет-магазин на Laravel...</p>
+                            <div class="project-skills">
+                                <span class="skill-tag">PHP</span>
+                                <span class="skill-tag">Laravel</span>
+                                <span class="skill-tag">MySQL</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card" onclick="viewProject(3)">
+                        <div class="project-header">
+                            <h3>SEO оптимизация сайта</h3>
+                            <div class="project-budget">50 000 - 100 000 ₽</div>
+                        </div>
+                        <div class="project-body">
+                            <p class="project-description">Провести SEO аудит и оптимизацию интернет-магазина...</p>
+                            <div class="project-skills">
+                                <span class="skill-tag">SEO</span>
+                                <span class="skill-tag">Аналитика</span>
+                                <span class="skill-tag">Keywords</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-card" onclick="viewProject(4)">
+                        <div class="project-header">
+                            <h3>Дизайн мобильного приложения</h3>
+                            <div class="project-budget">150 000 - 200 000 ₽</div>
+                        </div>
+                        <div class="project-body">
+                            <p class="project-description">Разработать UI/UX дизайн для фитнес-трекера...</p>
+                            <div class="project-skills">
+                                <span class="skill-tag">Figma</span>
+                                <span class="skill-tag">UI/UX</span>
+                                <span class="skill-tag">Mobile</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно отклика -->
+    <div class="modal" id="applyModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>ОТКЛИК НА ПРОЕКТ</h3>
+                <button class="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <form id="applyForm" class="cyber-form">
+                <div class="form-group">
+                    <label>СОПРОВОДИТЕЛЬНОЕ ПИСЬМО</label>
+                    <textarea name="cover_letter" required class="cyber-input" rows="5" 
+                              placeholder="Опишите ваш опыт и почему вы подходите для этого проекта..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>ПРЕДЛАГАЕМАЯ СТОИМОСТЬ</label>
+                    <input type="number" name="budget" class="cyber-input" placeholder="350000">
+                </div>
+                
+                <div class="form-group">
+                    <label>СРОК ВЫПОЛНЕНИЯ (ДНЕЙ)</label>
+                    <input type="number" name="duration" class="cyber-input" value="30">
+                </div>
+                
+                <div class="form-group">
+                    <label>ПРИМЕРЫ РАБОТ (ссылки)</label>
+                    <input type="text" name="portfolio" class="cyber-input" placeholder="https://github.com/...">
+                </div>
+                
+                <button type="submit" class="btn-primary btn-block">
+                    <span>ОТПРАВИТЬ ОТКЛИК</span>
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/core.js"></script>
+    <script src="../js/api.js"></script>
+    <script>
+        function applyToProject() {
+            if (!app.state.user) {
+                openModal('login');
+                app.showNotification('Необходимо войти в систему', 'warning');
+            } else {
+                openModal('apply');
+            }
+        }
+        
+        function saveProject() {
+            if (!app.state.user) {
+                openModal('login');
+            } else {
+                // Сохраняем в избранное
+                app.showNotification('Проект сохранен в избранное', 'success');
+            }
+        }
+        
+        function contactClient() {
+            if (!app.state.user) {
+                openModal('login');
+            } else {
+                window.location.href = 'messages.html?user=32';
+            }
+        }
+        
+        function viewProject(id) {
+            window.location.href = `project-detail.html?id=${id}`;
+        }
+        
+        // Обработка формы отклика
+        document.getElementById('applyForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Отправка на API
+            app.showNotification('Отклик отправлен! Заказчик получит уведомление.', 'success');
+            closeModal(document.getElementById('applyModal'));
+        });
+    </script>
+</body>
+</html>

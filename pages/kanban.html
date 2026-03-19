@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban доска | Project Collab Hub</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <style>
+        /* Специфичные стили для Kanban */
+        .kanban-page {
+            background: var(--primary-bg);
+            min-height: 100vh;
+            padding: 100px 30px 30px;
+        }
+        
+        .kanban-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .project-selector {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .project-select {
+            background: var(--tertiary-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 16px;
+            min-width: 250px;
+        }
+        
+        .board-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .kanban-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .kanban-column {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .column-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid;
+        }
+        
+        .column-header.todo { border-color: #3498db; }
+        .column-header.in-progress { border-color: #f39c12; }
+        .column-header.review { border-color: #9b59b6; }
+        .column-header.done { border-color: #2ecc71; }
+        
+        .column-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 18px;
+        }
+        
+        .column-title i {
+            font-size: 20px;
+        }
+        
+        .column-title.todo i { color: #3498db; }
+        .column-title.in-progress i { color: #f39c12; }
+        .column-title.review i { color: #9b59b6; }
+        .column-title.done i { color: #2ecc71; }
+        
+        .task-count {
+            background: var(--tertiary-bg);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .tasks-container {
+            flex: 1;
+            min-height: 400px;
+            transition: all 0.3s ease;
+        }
+        
+        .tasks-container.drag-over {
+            background: rgba(43, 127, 255, 0.1);
+            border-radius: 10px;
+        }
+        
+        .task-card {
+            background: var(--tertiary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 15px;
+            cursor: grab;
+            transition: all 0.3s ease;
+            position: relative;
+            user-select: none;
+        }
+        
+        .task-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-color: var(--accent-primary);
+        }
+        
+        .task-card.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+            transform: scale(0.98);
+        }
+        
+        .task-priority {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        
+        .priority-low { background: #3498db; box-shadow: 0 0 10px #3498db; }
+        .priority-medium { background: #f39c12; box-shadow: 0 0 10px #f39c12; }
+        .priority-high { background: #e74c3c; box-shadow: 0 0 10px #e74c3c; }
+        .priority-critical { background: #c0392b; box-shadow: 0 0 10px #c0392b; }
+        
+        .task-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            padding-right: 20px;
+            font-size: 16px;
+        }
+        
+        .task-description {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .task-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+        
+        .task-assignee {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .task-assignee img {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-primary);
+        }
+        
+        .task-deadline {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .task-deadline.urgent {
+            color: #e74c3c;
+        }
+        
+        .add-task-btn {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+        
+        .add-task-btn:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            background: rgba(43, 127, 255, 0.1);
+        }
+        
+        /* Модальное окно задачи */
+        .task-modal {
+            max-width: 600px;
+        }
+        
+        .priority-selector {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .priority-option {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .priority-option.low:hover,
+        .priority-option.low.selected {
+            background: #3498db;
+            border-color: #3498db;
+        }
+        
+        .priority-option.medium:hover,
+        .priority-option.medium.selected {
+            background: #f39c12;
+            border-color: #f39c12;
+        }
+        
+        .priority-option.high:hover,
+        .priority-option.high.selected {
+            background: #e74c3c;
+            border-color: #e74c3c;
+        }
+        
+        .priority-option.critical:hover,
+        .priority-option.critical.selected {
+            background: #c0392b;
+            border-color: #c0392b;
+        }
+        
+        .priority-option.selected {
+            color: white;
+        }
+        
+        .assignee-selector {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        
+        .assignee-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            background: var(--tertiary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .assignee-option:hover,
+        .assignee-option.selected {
+            background: var(--accent-primary);
+            border-color: var(--accent-primary);
+        }
+        
+        .assignee-option img {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 1200px) {
+            .kanban-board {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .kanban-board {
+                grid-template-columns: 1fr;
+            }
+            
+            .kanban-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .project-selector {
+                flex-direction: column;
+            }
+            
+            .project-select {
+                width: 100%;
+            }
+            
+            .board-actions {
+                justify-content: stretch;
+            }
+            
+            .board-actions button {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="cyber-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-glow">◈</span>
+                <span class="logo-text">PROJECT<span class="accent">COLLAB</span>HUB</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">ГЛАВНАЯ</a>
+                <a href="projects.html" class="nav-link">ПРОЕКТЫ</a>
+                <a href="kanban.html" class="nav-link active">KANBAN</a>
+                <a href="security-lab.html" class="nav-link">БЕЗОПАСНОСТЬ</a>
+                <a href="seo-dashboard.html" class="nav-link">SEO</a>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="btn-ghost" onclick="openModal('login')">
+                    <i class="fas fa-user-shield"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="kanban-page">
+        <div class="kanban-header">
+            <div class="project-selector">
+                <h2>Kanban доска</h2>
+                <select class="project-select" id="projectSelect" onchange="changeProject(this.value)">
+                    <option value="1">Разработка CRM системы</option>
+                    <option value="2">Интернет-магазин</option>
+                    <option value="3">SEO оптимизация</option>
+                    <option value="4">Мобильное приложение</option>
+                </select>
+            </div>
+            
+            <div class="board-actions">
+                <button class="btn-primary" onclick="openTaskModal()">
+                    <i class="fas fa-plus"></i>
+                    Новая задача
+                </button>
+                <button class="btn-ghost" onclick="saveBoard()">
+                    <i class="fas fa-save"></i>
+                    Сохранить
+                </button>
+                <button class="btn-ghost" onclick="loadBoard()">
+                    <i class="fas fa-sync-alt"></i>
+                    Обновить
+                </button>
+            </div>
+        </div>
+
+        <div class="kanban-board" id="kanbanBoard">
+            <!-- To Do колонка -->
+            <div class="kanban-column" data-status="todo" id="column-todo">
+                <div class="column-header todo">
+                    <div class="column-title todo">
+                        <i class="far fa-circle"></i>
+                        <span>To Do</span>
+                    </div>
+                    <span class="task-count" id="todoCount">0</span>
+                </div>
+                
+                <div class="tasks-container" id="todoTasks" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <!-- Задачи загружаются динамически -->
+                </div>
+                
+                <button class="add-task-btn" onclick="openTaskModal('todo')">
+                    <i class="fas fa-plus"></i> Добавить задачу
+                </button>
+            </div>
+
+            <!-- In Progress колонка -->
+            <div class="kanban-column" data-status="in-progress" id="column-in-progress">
+                <div class="column-header in-progress">
+                    <div class="column-title in-progress">
+                        <i class="fas fa-spinner"></i>
+                        <span>In Progress</span>
+                    </div>
+                    <span class="task-count" id="progressCount">0</span>
+                </div>
+                
+                <div class="tasks-container" id="inProgressTasks" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                
+                <button class="add-task-btn" onclick="openTaskModal('in-progress')">
+                    <i class="fas fa-plus"></i> Добавить задачу
+                </button>
+            </div>
+
+            <!-- Review колонка -->
+            <div class="kanban-column" data-status="review" id="column-review">
+                <div class="column-header review">
+                    <div class="column-title review">
+                        <i class="fas fa-eye"></i>
+                        <span>Review</span>
+                    </div>
+                    <span class="task-count" id="reviewCount">0</span>
+                </div>
+                
+                <div class="tasks-container" id="reviewTasks" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                
+                <button class="add-task-btn" onclick="openTaskModal('review')">
+                    <i class="fas fa-plus"></i> Добавить задачу
+                </button>
+            </div>
+
+            <!-- Done колонка -->
+            <div class="kanban-column" data-status="done" id="column-done">
+                <div class="column-header done">
+                    <div class="column-title done">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Done</span>
+                    </div>
+                    <span class="task-count" id="doneCount">0</span>
+                </div>
+                
+                <div class="tasks-container" id="doneTasks" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+                
+                <button class="add-task-btn" onclick="openTaskModal('done')">
+                    <i class="fas fa-plus"></i> Добавить задачу
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно задачи -->
+    <div class="modal" id="taskModal">
+        <div class="modal-content task-modal">
+            <div class="modal-header">
+                <h3>Создание задачи</h3>
+                <button class="modal-close" onclick="closeModal('taskModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form id="taskForm" class="cyber-form" onsubmit="return saveTask(event)">
+                <input type="hidden" id="taskId" name="id">
+                <input type="hidden" id="taskStatus" name="status" value="todo">
+                
+                <div class="form-group">
+                    <label>Название задачи *</label>
+                    <input type="text" id="taskTitle" class="cyber-input" required 
+                           placeholder="Введите название задачи">
+                </div>
+                
+                <div class="form-group">
+                    <label>Описание</label>
+                    <textarea id="taskDescription" class="cyber-input" rows="4" 
+                              placeholder="Подробное описание задачи"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Приоритет</label>
+                    <div class="priority-selector">
+                        <div class="priority-option low" onclick="selectPriority('low')">
+                            <i class="fas fa-arrow-down"></i> Low
+                        </div>
+                        <div class="priority-option medium selected" onclick="selectPriority('medium')">
+                            <i class="fas fa-minus"></i> Medium
+                        </div>
+                        <div class="priority-option high" onclick="selectPriority('high')">
+                            <i class="fas fa-arrow-up"></i> High
+                        </div>
+                        <div class="priority-option critical" onclick="selectPriority('critical')">
+                            <i class="fas fa-exclamation"></i> Critical
+                        </div>
+                    </div>
+                    <input type="hidden" id="taskPriority" name="priority" value="medium">
+                </div>
+                
+                <div class="form-group">
+                    <label>Исполнитель</label>
+                    <div class="assignee-selector" id="assigneeSelector">
+                        <div class="assignee-option" onclick="selectAssignee(1)">
+                            <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Иван">
+                            <span>Иван Петров</span>
+                        </div>
+                        <div class="assignee-option" onclick="selectAssignee(2)">
+                            <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="Мария">
+                            <span>Мария Смирнова</span>
+                        </div>
+                        <div class="assignee-option" onclick="selectAssignee(3)">
+                            <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Алексей">
+                            <span>Алексей Иванов</span>
+                        </div>
+                    </div>
+                    <input type="hidden" id="taskAssignee" name="assignee">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label>Дедлайн</label>
+                        <input type="date" id="taskDeadline" class="cyber-input">
+                    </div>
+                    
+                    <div class="form-group half">
+                        <label>Оценка (часы)</label>
+                        <input type="number" id="taskHours" class="cyber-input" min="0" step="0.5" placeholder="8">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Теги</label>
+                    <input type="text" id="taskTags" class="cyber-input" placeholder="bug, feature, urgent">
+                </div>
+                
+                <div class="button-group" style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="submit" class="btn-primary" style="flex: 1;">
+                        <i class="fas fa-save"></i>
+                        Сохранить
+                    </button>
+                    <button type="button" class="btn-ghost" onclick="closeModal('taskModal')" style="flex: 1;">
+                        Отмена
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно просмотра задачи -->
+    <div class="modal" id="viewTaskModal">
+        <div class="modal-content task-modal">
+            <div class="modal-header">
+                <h3 id="viewTaskTitle">Просмотр задачи</h3>
+                <button class="modal-close" onclick="closeModal('viewTaskModal')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="task-detail-view">
+                <div class="task-detail-priority" id="viewTaskPriority"></div>
+                
+                <div class="task-detail-section">
+                    <h4>Описание</h4>
+                    <p id="viewTaskDescription"></p>
+                </div>
+                
+                <div class="task-detail-grid">
+                    <div class="task-detail-item">
+                        <span class="label">Статус</span>
+                        <span class="value" id="viewTaskStatus"></span>
+                    </div>
+                    <div class="task-detail-item">
+                        <span class="label">Исполнитель</span>
+                        <span class="value" id="viewTaskAssignee"></span>
+                    </div>
+                    <div class="task-detail-item">
+                        <span class="label">Дедлайн</span>
+                        <span class="value" id="viewTaskDeadline"></span>
+                    </div>
+                    <div class="task-detail-item">
+                        <span class="label">Оценка</span>
+                        <span class="value" id="viewTaskHours"></span>
+                    </div>
+                </div>
+                
+                <div class="task-detail-section">
+                    <h4>Теги</h4>
+                    <div class="task-tags" id="viewTaskTags"></div>
+                </div>
+                
+                <div class="task-detail-section">
+                    <h4>Комментарии</h4>
+                    <div class="task-comments" id="taskComments">
+                        <!-- Комментарии загружаются динамически -->
+                    </div>
+                    
+                    <div class="add-comment">
+                        <textarea class="cyber-input" placeholder="Добавить комментарий..." rows="2"></textarea>
+                        <button class="btn-primary btn-small">Отправить</button>
+                    </div>
+                </div>
+                
+                <div class="button-group" style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button class="btn-primary" style="flex: 1;" onclick="editCurrentTask()">
+                        <i class="fas fa-edit"></i>
+                        Редактировать
+                    </button>
+                    <button class="btn-ghost" style="flex: 1;" onclick="deleteCurrentTask()">
+                        <i class="fas fa-trash"></i>
+                        Удалить
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/core.js"></script>
+    <script src="../js/kanban.js"></script>
+    <script>
+        // Глобальные переменные
+        let currentProject = 1;
+        let tasks = [];
+        let currentTaskId = null;
+        let draggedItem = null;
+        
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTasks();
+            initDragAndDrop();
+        });
+        
+        // Загрузка задач
+        function loadTasks() {
+            // Пример данных для демонстрации
+            tasks = [
+                // To Do
+                { id: 1, title: 'Разработка API', description: 'Создать RESTful API для CRM системы с документацией Swagger', priority: 'high', assignee: 'Иван Петров', assigneeAvatar: 'https://randomuser.me/api/portraits/men/1.jpg', deadline: '2026-03-25', hours: 16, status: 'todo', tags: ['backend', 'api'] },
+                { id: 2, title: 'Проектирование БД', description: 'Спроектировать структуру базы данных, создать ER-диаграмму', priority: 'critical', assignee: 'Мария Смирнова', assigneeAvatar: 'https://randomuser.me/api/portraits/women/2.jpg', deadline: '2026-03-20', hours: 8, status: 'todo', tags: ['database', 'design'] },
+                { id: 3, title: 'Настройка сервера', description: 'Настроить серверное окружение, установить необходимые пакеты', priority: 'medium', assignee: 'Алексей Иванов', assigneeAvatar: 'https://randomuser.me/api/portraits/men/3.jpg', deadline: '2026-03-22', hours: 4, status: 'todo', tags: ['devops', 'server'] },
+                
+                // In Progress
+                { id: 4, title: 'Верстка интерфейса', description: 'Сверстать главную страницу и дашборд по макетам', priority: 'high', assignee: 'Елена Соколова', assigneeAvatar: 'https://randomuser.me/api/portraits/women/4.jpg', deadline: '2026-03-23', hours: 24, status: 'in-progress', tags: ['frontend', 'html', 'css'] },
+                { id: 5, title: 'Авторизация JWT', description: 'Реализовать JWT авторизацию и middleware для проверки токенов', priority: 'high', assignee: 'Иван Петров', assigneeAvatar: 'https://randomuser.me/api/portraits/men/1.jpg', deadline: '2026-03-21', hours: 12, status: 'in-progress', tags: ['backend', 'security'] },
+                { id: 6, title: 'Интеграция с телефонией', description: 'Подключить API телефонии для записи звонков', priority: 'medium', assignee: 'Петр Сидоров', assigneeAvatar: 'https://randomuser.me/api/portraits/men/5.jpg', deadline: '2026-03-26', hours: 20, status: 'in-progress', tags: ['api', 'integration'] },
+                
+                // Review
+                { id: 7, title: 'Код-ревью авторизации', description: 'Проверить пул-реквест с реализацией JWT', priority: 'medium', assignee: 'Алексей Иванов', assigneeAvatar: 'https://randomuser.me/api/portraits/men/3.jpg', deadline: '2026-03-19', hours: 2, status: 'review', tags: ['review', 'security'] },
+                { id: 8, title: 'Тестирование API', description: 'Провести тестирование всех эндпоинтов Postman', priority: 'high', assignee: 'Дмитрий Козлов', assigneeAvatar: 'https://randomuser.me/api/portraits/men/6.jpg', deadline: '2026-03-20', hours: 6, status: 'review', tags: ['testing', 'api'] },
+                
+                // Done
+                { id: 9, title: 'Настройка Git репозитория', description: 'Инициализировать репозиторий, настроить .gitignore', priority: 'low', assignee: 'Иван Петров', assigneeAvatar: 'https://randomuser.me/api/portraits/men/1.jpg', deadline: '2026-03-15', hours: 1, status: 'done', tags: ['git'] },
+                { id: 10, title: 'Документация проекта', description: 'Написать README и базовую документацию', priority: 'low', assignee: 'Мария Смирнова', assigneeAvatar: 'https://randomuser.me/api/portraits/women/2.jpg', deadline: '2026-03-16', hours: 3, status: 'done', tags: ['docs'] },
+                { id: 11, title: 'Установка зависимостей', description: 'Установить все необходимые пакеты через composer и npm', priority: 'medium', assignee: 'Алексей Иванов', assigneeAvatar: 'https://randomuser.me/api/portraits/men/3.jpg', deadline: '2026-03-14', hours: 2, status: 'done', tags: ['setup'] }
+            ];
+            
+            renderBoard();
+        }
+        
+        // Отрисовка доски
+        function renderBoard() {
+            const todoTasks = tasks.filter(t => t.status === 'todo');
+            const inProgressTasks = tasks.filter(t => t.status === 'in-progress');
+            const reviewTasks = tasks.filter(t => t.status === 'review');
+            const doneTasks = tasks.filter(t => t.status === 'done');
+            
+            renderTasks('todo', todoTasks);
+            renderTasks('in-progress', inProgressTasks);
+            renderTasks('review', reviewTasks);
+            renderTasks('done', doneTasks);
+            
+            updateCounts();
+        }
+        
+        // Отрисовка задач в колонке
+        function renderTasks(status, tasks) {
+            const container = document.getElementById(status + 'Tasks');
+            if (!container) return;
+            
+            if (tasks.length === 0) {
+                container.innerHTML = '<div class="empty-column">Нет задач</div>';
+                return;
+            }
+            
+            container.innerHTML = tasks.map(task => `
+                <div class="task-card" draggable="true" 
+                     data-id="${task.id}" 
+                     data-status="${task.status}"
+                     ondragstart="dragStart(event)"
+                     ondragend="dragEnd(event)"
+                     onclick="viewTask(${task.id})">
+                    
+                    <div class="task-priority priority-${task.priority}"></div>
+                    
+                    <div class="task-title">${task.title}</div>
+                    
+                    <div class="task-description">${task.description.substring(0, 60)}...</div>
+                    
+                    <div class="task-meta">
+                        <div class="task-assignee">
+                            <img src="${task.assigneeAvatar}" alt="${task.assignee}">
+                            <span>${task.assignee}</span>
+                        </div>
+                        
+                        <div class="task-deadline ${isUrgent(task.deadline) ? 'urgent' : ''}">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>${formatDate(task.deadline)}</span>
+                        </div>
+                    </div>
+                    
+                    ${task.tags ? `
+                        <div class="task-tags" style="margin-top: 10px;">
+                            ${task.tags.map(tag => `<span class="skill-tag small">${tag}</span>`).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+        
+        // Инициализация Drag & Drop
+        function initDragAndDrop() {
+            const containers = document.querySelectorAll('.tasks-container');
+            containers.forEach(container => {
+                container.addEventListener('dragover', allowDrop);
+                container.addEventListener('drop', drop);
+            });
+        }
+        
+        function allowDrop(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('drag-over');
+        }
+        
+        function dragStart(e) {
+            draggedItem = e.target.closest('.task-card');
+            draggedItem.classList.add('dragging');
+            e.dataTransfer.setData('text/plain', JSON.stringify({
+                id: draggedItem.dataset.id,
+                status: draggedItem.dataset.status
+            }));
+        }
+        
+        function dragEnd(e) {
+            e.target.classList.remove('dragging');
+            document.querySelectorAll('.tasks-container').forEach(c => {
+                c.classList.remove('drag-over');
+            });
+        }
+        
+        function drop(e) {
+            e.preventDefault();
+            const container = e.currentTarget;
+            container.classList.remove('drag-over');
+            
+            const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+            const taskId = parseInt(data.id);
+            const oldStatus = data.status;
+            const newStatus = container.closest('.kanban-column').dataset.status;
+            
+            if (oldStatus === newStatus) return;
+            
+            // Находим задачу
+            const taskIndex = tasks.findIndex(t => t.id === taskId);
+            if (taskIndex === -1) return;
+            
+            // Обновляем статус
+            tasks[taskIndex].status = newStatus;
+            
+            // Перерисовываем доску
+            renderBoard();
+            
+            // Сохраняем изменения
+            saveBoardToStorage();
+            
+            // Показываем уведомление
+            if (window.app) {
+                app.showNotification(`Задача перемещена в ${getStatusName(newStatus)}`, 'success');
+            }
+        }
+        
+        // Получение названия статуса
+        function getStatusName(status) {
+            const names = {
+                'todo': 'To Do',
+                'in-progress': 'In Progress',
+                'review': 'Review',
+                'done': 'Done'
+            };
+            return names[status] || status;
+        }
+        
+        // Обновление счетчиков
+        function updateCounts() {
+            document.getElementById('todoCount').textContent = tasks.filter(t => t.status === 'todo').length;
+            document.getElementById('progressCount').textContent = tasks.filter(t => t.status === 'in-progress').length;
+            document.getElementById('reviewCount').textContent = tasks.filter(t => t.status === 'review').length;
+            document.getElementById('doneCount').textContent = tasks.filter(t => t.status === 'done').length;
+        }
+        
+        // Открытие модального окна задачи
+        function openTaskModal(status = 'todo') {
+            document.getElementById('taskId').value = '';
+            document.getElementById('taskStatus').value = status;
+            document.getElementById('taskTitle').value = '';
+            document.getElementById('taskDescription').value = '';
+            document.getElementById('taskPriority').value = 'medium';
+            document.getElementById('taskAssignee').value = '';
+            document.getElementById('taskDeadline').value = '';
+            document.getElementById('taskHours').value = '';
+            document.getElementById('taskTags').value = '';
+            
+            // Сброс выбора приоритета
+            document.querySelectorAll('.priority-option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelector('.priority-option.medium').classList.add('selected');
+            
+            // Сброс выбора исполнителя
+            document.querySelectorAll('.assignee-option').forEach(opt => opt.classList.remove('selected'));
+            
+            openModal('taskModal');
+        }
+        
+        // Выбор приоритета
+        function selectPriority(priority) {
+            document.querySelectorAll('.priority-option').forEach(opt => opt.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            document.getElementById('taskPriority').value = priority;
+        }
+        
+        // Выбор исполнителя
+        function selectAssignee(userId) {
+            document.querySelectorAll('.assignee-option').forEach(opt => opt.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            document.getElementById('taskAssignee').value = userId;
+        }
+        
+        // Сохранение задачи
+        function saveTask(e) {
+            e.preventDefault();
+            
+            const taskId = document.getElementById('taskId').value;
+            const taskData = {
+                title: document.getElementById('taskTitle').value,
+                description: document.getElementById('taskDescription').value,
+                priority: document.getElementById('taskPriority').value,
+                assignee: getAssigneeName(document.getElementById('taskAssignee').value),
+                assigneeAvatar: getAssigneeAvatar(document.getElementById('taskAssignee').value),
+                deadline: document.getElementById('taskDeadline').value,
+                hours: document.getElementById('taskHours').value,
+                status: document.getElementById('taskStatus').value,
+                tags: document.getElementById('taskTags').value.split(',').map(t => t.trim()).filter(t => t)
+            };
+            
+            if (taskId) {
+                // Обновление существующей задачи
+                const index = tasks.findIndex(t => t.id == taskId);
+                if (index !== -1) {
+                    tasks[index] = { ...tasks[index], ...taskData };
+                }
+            } else {
+                // Создание новой задачи
+                const newId = Math.max(...tasks.map(t => t.id)) + 1;
+                tasks.push({
+                    id: newId,
+                    ...taskData
+                });
+            }
+            
+            // Перерисовка
+            renderBoard();
+            
+            // Закрытие модального окна
+            closeModal('taskModal');
+            
+            // Сохранение
+            saveBoardToStorage();
+            
+            if (window.app) {
+                app.showNotification('Задача сохранена', 'success');
+            }
+            
+            return false;
+        }
+        
+        // Получение имени исполнителя по ID
+        function getAssigneeName(id) {
+            const names = {
+                '1': 'Иван Петров',
+                '2': 'Мария Смирнова',
+                '3': 'Алексей Иванов'
+            };
+            return names[id] || 'Не назначен';
+        }
+        
+        // Получение аватара исполнителя по ID
+        function getAssigneeAvatar(id) {
+            const avatars = {
+                '1': 'https://randomuser.me/api/portraits/men/1.jpg',
+                '2': 'https://randomuser.me/api/portraits/women/2.jpg',
+                '3': 'https://randomuser.me/api/portraits/men/3.jpg'
+            };
+            return avatars[id] || '';
+        }
+        
+        // Просмотр задачи
+        function viewTask(id) {
+            const task = tasks.find(t => t.id === id);
+            if (!task) return;
+            
+            currentTaskId = id;
+            
+            document.getElementById('viewTaskTitle').textContent = task.title;
+            document.getElementById('viewTaskDescription').textContent = task.description;
+            document.getElementById('viewTaskStatus').textContent = getStatusName(task.status);
+            document.getElementById('viewTaskAssignee').textContent = task.assignee;
+            document.getElementById('viewTaskDeadline').textContent = task.deadline ? formatDateFull(task.deadline) : 'Не указан';
+            document.getElementById('viewTaskHours').textContent = task.hours ? task.hours + ' ч' : 'Не указано';
+            
+            // Приоритет
+            const priorityEl = document.getElementById('viewTaskPriority');
+            priorityEl.className = `task-detail-priority priority-${task.priority}`;
+            priorityEl.innerHTML = `<i class="fas fa-flag"></i> ${task.priority.toUpperCase()}`;
+            
+            // Теги
+            const tagsContainer = document.getElementById('viewTaskTags');
+            if (task.tags && task.tags.length) {
+                tagsContainer.innerHTML = task.tags.map(tag => 
+                    `<span class="skill-tag">${tag}</span>`
+                ).join('');
+            } else {
+                tagsContainer.innerHTML = 'Нет тегов';
+            }
+            
+            // Комментарии (пример)
+            const commentsContainer = document.getElementById('taskComments');
+            commentsContainer.innerHTML = `
+                <div class="comment">
+                    <div class="comment-header">
+                        <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Иван">
+                        <span class="comment-author">Иван Петров</span>
+                        <span class="comment-date">2 часа назад</span>
+                    </div>
+                    <div class="comment-text">Нужно обсудить детали API на созвоне</div>
+                </div>
+                <div class="comment">
+                    <div class="comment-header">
+                        <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="Мария">
+                        <span class="comment-author">Мария Смирнова</span>
+                        <span class="comment-date">Вчера</span>
+                    </div>
+                    <div class="comment-text">Я подготовила структуру БД, можно смотреть</div>
+                </div>
+            `;
+            
+            openModal('viewTaskModal');
+        }
+        
+        // Редактирование текущей задачи
+        function editCurrentTask() {
+            const task = tasks.find(t => t.id === currentTaskId);
+            if (!task) return;
+            
+            closeModal('viewTaskModal');
+            
+            document.getElementById('taskId').value = task.id;
+            document.getElementById('taskStatus').value = task.status;
+            document.getElementById('taskTitle').value = task.title;
+            document.getElementById('taskDescription').value = task.description;
+            document.getElementById('taskPriority').value = task.priority;
+            document.getElementById('taskDeadline').value = task.deadline || '';
+            document.getElementById('taskHours').value = task.hours || '';
+            document.getElementById('taskTags').value = task.tags ? task.tags.join(', ') : '';
+            
+            // Выбор приоритета
+            document.querySelectorAll('.priority-option').forEach(opt => opt.classList.remove('selected'));
+            document.querySelector(`.priority-option.${task.priority}`)?.classList.add('selected');
+            
+            openModal('taskModal');
+        }
+        
+        // Удаление текущей задачи
+        function deleteCurrentTask() {
+            if (confirm('Удалить задачу?')) {
+                tasks = tasks.filter(t => t.id !== currentTaskId);
+                renderBoard();
+                closeModal('viewTaskModal');
+                saveBoardToStorage();
+                
+                if (window.app) {
+                    app.showNotification('Задача удалена', 'success');
+                }
+            }
+        }
+        
+        // Сохранение доски в localStorage
+        function saveBoardToStorage() {
+            localStorage.setItem('kanbanTasks', JSON.stringify(tasks));
+        }
+        
+        // Загрузка доски из localStorage
+        function loadBoardFromStorage() {
+            const saved = localStorage.getItem('kanbanTasks');
+            if (saved) {
+                tasks = JSON.parse(saved);
+                renderBoard();
+            }
+        }
+        
+        // Сохранение доски
+        function saveBoard() {
+            saveBoardToStorage();
+            if (window.app) {
+                app.showNotification('Доска сохранена', 'success');
+            }
+        }
+        
+        // Загрузка доски
+        function loadBoard() {
+            loadBoardFromStorage();
+            if (window.app) {
+                app.showNotification('Доска обновлена', 'success');
+            }
+        }
+        
+        // Смена проекта
+        function changeProject(projectId) {
+            currentProject = projectId;
+            loadTasks(); // Загружаем задачи для выбранного проекта
+            if (window.app) {
+                app.showNotification('Проект изменен', 'info');
+            }
+        }
+        
+        // Проверка срочности дедлайна
+        function isUrgent(date) {
+            if (!date) return false;
+            const deadline = new Date(date);
+            const today = new Date();
+            const diff = Math.ceil((deadline - today) / (1000 * 60 * 60 * 24));
+            return diff <= 2;
+        }
+        
+        // Форматирование даты
+        function formatDate(date) {
+            if (!date) return '';
+            const d = new Date(date);
+            return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
+        }
+        
+        function formatDateFull(date) {
+            if (!date) return '';
+            const d = new Date(date);
+            return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+        }
+        
+        // Открытие модального окна
+        function openModal(modalId) {
+            document.getElementById(modalId + 'Modal').classList.add('active');
+        }
+        
+        // Закрытие модального окна
+        function closeModal(modalId) {
+            document.getElementById(modalId + 'Modal').classList.remove('active');
+        }
+    </script>
+</body>
+</html>

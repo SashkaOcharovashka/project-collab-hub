@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Collab Hub | Платформа для профессиональной коллаборации</title>
+    
+    <!-- SEO Meta -->
+    <meta name="description" content="Project Collab Hub - премиальная платформа для поиска исполнителей и командной работы. Аналитика рынка, уникальное торговое предложение, умный подбор команды.">
+    <meta name="keywords" content="коллаборация, проекты, фриланс, команда, аналитика, УТП">
+    <meta name="author" content="Project Collab Hub">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Project Collab Hub">
+    <meta property="og:description" content="Платформа для профессиональной коллаборации">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="assets/og-image.jpg">
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Прелоадер -->
+    <div class="preloader">
+        <div class="preloader-content">
+            <div class="cyber-circle"></div>
+            <div class="loading-text">ИНИЦИАЛИЗАЦИЯ СИСТЕМЫ...</div>
+            <div class="loading-progress">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Навигация -->
+    <nav class="cyber-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-glow">◈</span>
+                <span class="logo-text">PROJECT<span class="accent">COLLAB</span>HUB</span>
+                <span class="logo-version">v2.0</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="#home" class="nav-link active" data-text="ГЛАВНАЯ">ГЛАВНАЯ</a>
+                <a href="#analysis" class="nav-link" data-text="АНАЛИТИКА">АНАЛИТИКА</a>
+                <a href="#utp" class="nav-link" data-text="УТП">УТП</a>
+                <a href="#projects" class="nav-link" data-text="ПРОЕКТЫ">ПРОЕКТЫ</a>
+                <a href="#about" class="nav-link" data-text="О НАС">О НАС</a>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="btn-ghost" onclick="openModal('login')">
+                    <i class="fas fa-user-shield"></i>
+                    <span>ВОЙТИ</span>
+                </button>
+                <button class="btn-primary" onclick="openModal('register')">
+                    <span>РЕГИСТРАЦИЯ</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+            
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero секция -->
+    <section id="home" class="hero-section">
+        <div class="cyber-grid"></div>
+        <div class="particles"></div>
+        
+        <div class="hero-content">
+            <div class="market-badge">
+                <span class="badge-glow"></span>
+                <i class="fas fa-chart-line"></i>
+                <span>АНАЛИТИКА РЫНКА 2026</span>
+            </div>
+            
+            <h1 class="hero-title">
+                <span class="title-line">ПЕРЕОПРЕДЕЛЯЯ</span>
+                <span class="title-line accent">КОЛЛАБОРАЦИЮ</span>
+                <div class="title-glitch" data-text="PROJECT COLLAB HUB">PROJECT COLLAB HUB</div>
+            </h1>
+            
+            <p class="hero-description">
+                Уникальная платформа, объединяющая передовые технологии анализа рынка,
+                интеллектуальный подбор команд и профессиональную аналитику. 
+                98% проектов успешно завершаются в срок.
+            </p>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-value" data-target="5000">0</span>
+                    <span class="stat-label">Активных проектов</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" data-target="15000">0</span>
+                    <span class="stat-label">Пользователей</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" data-target="98">0</span>
+                    <span class="stat-label">% успешных</span>
+                </div>
+            </div>
+            
+            <div class="hero-actions">
+                <button class="btn-primary btn-large" onclick="openModal('create-project')">
+                    <span>СОЗДАТЬ ПРОЕКТ</span>
+                    <i class="fas fa-plus-circle"></i>
+                </button>
+                <button class="btn-outline btn-large" onclick="scrollToAnalysis()">
+                    <span>АНАЛИТИКА РЫНКА</span>
+                    <i class="fas fa-chart-bar"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="hero-visual">
+            <div class="orb"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+        </div>
+    </section>
+
+    <!-- Секция анализа конкурентов (Задание 1) -->
+    <section id="analysis" class="analysis-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title glitch-text" data-text="АНАЛИТИКА РЫНКА">АНАЛИТИКА РЫНКА</h2>
+                <p class="section-subtitle">Сравнительный анализ ведущих платформ для коллаборации</p>
+            </div>
+            
+            <div class="analysis-tabs">
+                <button class="tab-btn active" onclick="switchAnalysis('competitors')">КОНКУРЕНТЫ</button>
+                <button class="tab-btn" onclick="switchAnalysis('swot')">SWOT АНАЛИЗ</button>
+                <button class="tab-btn" onclick="switchAnalysis('trends')">ТРЕНДЫ 2026</button>
+            </div>
+            
+            <div id="competitors-analysis" class="tab-content active">
+                <div class="competitors-grid">
+                    <!-- Upwork анализ -->
+                    <div class="competitor-card">
+                        <div class="card-header">
+                            <div class="competitor-logo">
+                                <i class="fab fa-upwork"></i>
+                            </div>
+                            <h3>Upwork</h3>
+                            <span class="market-share">32%</span>
+                        </div>
+                        
+                        <div class="card-strengths">
+                            <h4><i class="fas fa-plus-circle"></i> Сильные стороны</h4>
+                            <ul>
+                                <li>Глобальная аудитория (12M+ фрилансеров)</li>
+                                <li>Развитая система платежей</li>
+                                <li>Юридическая защита сделок</li>
+                                <li>Интеграция с популярными сервисами</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card-weaknesses">
+                            <h4><i class="fas fa-minus-circle"></i> Слабые стороны</h4>
+                            <ul>
+                                <li>Высокая комиссия (до 20%)</li>
+                                <li>Сложная верификация</li>
+                                <li>Медленная поддержка</li>
+                                <li>Конкуренция за проекты</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card-rating">
+                            <span>Рейтинг: 7.4/10</span>
+                            <div class="rating-bar">
+                                <div class="rating-fill" style="width: 74%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Freelancer анализ -->
+                    <div class="competitor-card">
+                        <div class="card-header">
+                            <div class="competitor-logo">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <h3>Freelancer</h3>
+                            <span class="market-share">28%</span>
+                        </div>
+                        
+                        <div class="card-strengths">
+                            <h4><i class="fas fa-plus-circle"></i> Сильные стороны</h4>
+                            <ul>
+                                <li>Система конкурсов</li>
+                                <li>Мобильное приложение</li>
+                                <li>Бонусная программа</li>
+                                <li>Микро-задачи</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card-weaknesses">
+                            <h4><i class="fas fa-minus-circle"></i> Слабые стороны</h4>
+                            <ul>
+                                <li>Спам-заявки</li>
+                                <li>Низкое качество исполнителей</li>
+                                <li>Скрытые платежи</li>
+                                <li>Сложный интерфейс</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card-rating">
+                            <span>Рейтинг: 6.8/10</span>
+                            <div class="rating-bar">
+                                <div class="rating-fill" style="width: 68%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Fiverr анализ -->
+                    <div class="competitor-card">
+                        <div class="card-header">
+                            <div class="competitor-logo">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <h3>Fiverr</h3>
+                            <span class="market-share">25%</span>
+                        </div>
+                        
+                        <div class="card-strengths">
+                            <h4><i class="fas fa-plus-circle"></i> Сильные стороны</h4>
+                            <ul>
+                                <li>Готовые предложения (гиги)</li>
+                                <li>Быстрый старт</li>
+                                <li>Понятный интерфейс</li>
+                                <li>Маркетинговая поддержка</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card-weaknesses">
+                            <h4><i class="fas fa-minus-circle"></i> Слабые стороны</h4>
+                            <ul>
+                                <li>Фиксированные цены</li>
+                                <li>Ограниченная кастомизация</li>
+                                <li>Высокая конкуренция</li>
+                                <li>Комиссия за вывод</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card-rating">
+                            <span>Рейтинг: 7.1/10</span>
+                            <div class="rating-bar">
+                                <div class="rating-fill" style="width: 71%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Toptal анализ -->
+                    <div class="competitor-card">
+                        <div class="card-header">
+                            <div class="competitor-logo">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <h3>Toptal</h3>
+                            <span class="market-share">15%</span>
+                        </div>
+                        
+                        <div class="card-strengths">
+                            <h4><i class="fas fa-plus-circle"></i> Сильные стороны</h4>
+                            <ul>
+                                <li>Топ-исполнители (3% отбор)</li>
+                                <li>Премиум качество</li>
+                                <li>Персональный менеджер</li>
+                                <li>Гарантия качества</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card-weaknesses">
+                            <h4><i class="fas fa-minus-circle"></i> Слабые стороны</h4>
+                            <ul>
+                                <li>Очень высокие цены</li>
+                                <li>Долгий отбор</li>
+                                <li>Не подходит для малых проектов</li>
+                                <li>Ограниченный выбор</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card-rating">
+                            <span>Рейтинг: 8.2/10</span>
+                            <div class="rating-bar">
+                                <div class="rating-fill" style="width: 82%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="swot-analysis" class="tab-content">
+                <div class="swot-grid">
+                    <div class="swot-card strengths">
+                        <h3><i class="fas fa-plus-circle"></i> Strengths</h3>
+                        <ul>
+                            <li>Уникальная система безопасности</li>
+                            <li>Интеллектуальный подбор команды</li>
+                            <li>Встроенная SEO-оптимизация</li>
+                            <li>Современный интерфейс</li>
+                        </ul>
+                    </div>
+                    <div class="swot-card weaknesses">
+                        <h3><i class="fas fa-minus-circle"></i> Weaknesses</h3>
+                        <ul>
+                            <li>Молодая платформа</li>
+                            <li>Недостаточная известность</li>
+                            <li>Ограниченная база исполнителей</li>
+                        </ul>
+                    </div>
+                    <div class="swot-card opportunities">
+                        <h3><i class="fas fa-arrow-up"></i> Opportunities</h3>
+                        <ul>
+                            <li>Растущий рынок удаленной работы</li>
+                            <li>Спрос на безопасность</li>
+                            <li>AI и автоматизация</li>
+                        </ul>
+                    </div>
+                    <div class="swot-card threats">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Threats</h3>
+                        <ul>
+                            <li>Высокая конкуренция</li>
+                            <li>Экономическая нестабильность</li>
+                            <li>Изменения в законодательстве</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="trends-analysis" class="tab-content">
+                <div class="trends-container">
+                    <div class="trend-card">
+                        <div class="trend-year">2026</div>
+                        <h4>Рост AI-коллабораций</h4>
+                        <div class="trend-bar" style="width: 95%"></div>
+                        <span>+95%</span>
+                    </div>
+                    <div class="trend-card">
+                        <div class="trend-year">2026</div>
+                        <h4>Безопасность данных</h4>
+                        <div class="trend-bar" style="width: 87%"></div>
+                        <span>+87%</span>
+                    </div>
+                    <div class="trend-card">
+                        <div class="trend-year">2026</div>
+                        <h4>Удаленные команды</h4>
+                        <div class="trend-bar" style="width: 78%"></div>
+                        <span>+78%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- УТП секция (Задание 1) -->
+    <section id="utp" class="utp-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">УНИКАЛЬНОЕ ТОРГОВОЕ ПРЕДЛОЖЕНИЕ</h2>
+                <p class="section-subtitle">Почему выбирают Project Collab Hub</p>
+            </div>
+            
+            <div class="utp-grid">
+                <div class="utp-card featured">
+                    <div class="utp-icon">
+                        <i class="fas fa-shield-halved"></i>
+                        <div class="icon-glow"></div>
+                    </div>
+                    <h3>КВАНТОВАЯ БЕЗОПАСНОСТЬ</h3>
+                    <p>Шифрование RSA-4096 и протокол Диффи-Хеллмана для защиты всех данных</p>
+                    <ul class="utp-features">
+                        <li><i class="fas fa-check"></i> End-to-end шифрование</li>
+                        <li><i class="fas fa-check"></i> Двухфакторная аутентификация</li>
+                        <li><i class="fas fa-check"></i> Аудит безопасности</li>
+                    </ul>
+                    <div class="utp-stats">
+                        <span>100% защита</span>
+                    </div>
+                </div>
+                
+                <div class="utp-card">
+                    <div class="utp-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI-МЭТЧИНГ</h3>
+                    <p>Интеллектуальный подбор команды на основе анализа навыков и опыта</p>
+                    <ul class="utp-features">
+                        <li><i class="fas fa-check"></i> Точность 95%</li>
+                        <li><i class="fas fa-check"></i> Учет soft skills</li>
+                        <li><i class="fas fa-check"></i> Анализ совместимости</li>
+                    </ul>
+                    <div class="utp-stats">
+                        <span>24 часа на подбор</span>
+                    </div>
+                </div>
+                
+                <div class="utp-card">
+                    <div class="utp-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>SEO-ОПТИМИЗАЦИЯ</h3>
+                    <p>Встроенные инструменты для продвижения проектов в поисковых системах</p>
+                    <ul class="utp-features">
+                        <li><i class="fas fa-check"></i> Автоматический аудит</li>
+                        <li><i class="fas fa-check"></i> Кластеризация ключей</li>
+                        <li><i class="fas fa-check"></i> Анализ конкурентов</li>
+                    </ul>
+                    <div class="utp-stats">
+                        <span>+150% трафика</span>
+                    </div>
+                </div>
+                
+                <div class="utp-card">
+                    <div class="utp-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>ГАРАНТИЯ СРОКОВ</h3>
+                    <p>Система эскроу и умные контракты для защиты интересов обеих сторон</p>
+                    <ul class="utp-features">
+                        <li><i class="fas fa-check"></i> Безопасные платежи</li>
+                        <li><i class="fas fa-check"></i> Автоматические этапы</li>
+                        <li><i class="fas fa-check"></i> Страхование рисков</li>
+                    </ul>
+                    <div class="utp-stats">
+                        <span>98% выполнений</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- User Stories (Задание 1) -->
+            <div class="user-stories">
+                <h3>ПОЛЬЗОВАТЕЛЬСКИЕ СЦЕНАРИИ</h3>
+                <div class="stories-grid">
+                    <div class="story-card">
+                        <div class="story-role customer">
+                            <i class="fas fa-user-tie"></i>
+                            <span>ЗАКАЗЧИК</span>
+                        </div>
+                        <p>"Как заказчик, я хочу опубликовать проект и найти лучших исполнителей за 24 часа"</p>
+                    </div>
+                    <div class="story-card">
+                        <div class="story-role executor">
+                            <i class="fas fa-laptop-code"></i>
+                            <span>ИСПОЛНИТЕЛЬ</span>
+                        </div>
+                        <p>"Как разработчик, я хочу получать релевантные предложения по моим навыкам"</p>
+                    </div>
+                    <div class="story-card">
+                        <div class="story-role admin">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>АДМИНИСТРАТОР</span>
+                        </div>
+                        <p>"Как администратор, я хочу видеть аналитику и быстро решать конфликты"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Проекты секция -->
+    <section id="projects" class="projects-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">АКТУАЛЬНЫЕ ПРОЕКТЫ</h2>
+                <p class="section-subtitle">Найдите идеальный проект для реализации</p>
+            </div>
+            
+            <div class="projects-filter">
+                <button class="filter-btn active" data-filter="all">ВСЕ</button>
+                <button class="filter-btn" data-filter="development">РАЗРАБОТКА</button>
+                <button class="filter-btn" data-filter="design">ДИЗАЙН</button>
+                <button class="filter-btn" data-filter="marketing">МАРКЕТИНГ</button>
+                <button class="filter-btn" data-filter="seo">SEO</button>
+            </div>
+            
+            <div class="projects-grid" id="projectsContainer">
+                <!-- Проекты загружаются динамически -->
+            </div>
+            
+            <div class="view-all">
+                <a href="pages/projects.html" class="btn-outline">
+                    <span>ВСЕ ПРОЕКТЫ</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Отзывы -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">ОТЗЫВЫ КЛИЕНТОВ</h2>
+                <p class="section-subtitle">Что говорят о нас пользователи</p>
+            </div>
+            
+            <div class="testimonials-slider" id="testimonialsContainer">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"Отличная платформа! Нашел команду разработчиков за 2 дня. Проект сдали раньше срока."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Алексей">
+                        <div class="author-info">
+                            <h4>Алексей Петров</h4>
+                            <p>CEO TechStart</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"Безопасность на высшем уровне. Все данные защищены, платежи прозрачны."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="Елена">
+                        <div class="author-info">
+                            <h4>Елена Смирнова</h4>
+                            <p>Дизайнер</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"Удобная канбан-доска, отличный AI-подбор. Рекомендую!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Дмитрий">
+                        <div class="author-info">
+                            <h4>Дмитрий Иванов</h4>
+                            <p>Team Lead</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <span class="logo-glow">◈</span>
+                        <span class="logo-text">PROJECT<span class="accent">COLLAB</span>HUB</span>
+                    </div>
+                    <p>Премиальная платформа для профессиональной коллаборации и управления проектами.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>НАВИГАЦИЯ</h4>
+                    <ul>
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#analysis">Аналитика</a></li>
+                        <li><a href="#utp">УТП</a></li>
+                        <li><a href="#projects">Проекты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>ПРОДУКТЫ</h4>
+                    <ul>
+                        <li><a href="pages/kanban.html">Kanban доска</a></li>
+                        <li><a href="pages/security-lab.html">Безопасность</a></li>
+                        <li><a href="pages/seo-dashboard.html">SEO дашборд</a></li>
+                        <li><a href="pages/projects.html">Все проекты</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h4>КОНТАКТЫ</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> info@collabhub.ru</li>
+                        <li><i class="fas fa-phone"></i> +7 (999) 123-45-67</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Москва, ул. Примерная, 123</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Project Collab Hub. Все права защищены.</p>
+                <div class="footer-links">
+                    <a href="#">Политика конфиденциальности</a>
+                    <a href="#">Условия использования</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Модальное окно входа -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>ВХОД В СИСТЕМУ</h3>
+                <button class="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <form id="loginForm" class="cyber-form">
+                <div class="form-group">
+                    <label>EMAIL</label>
+                    <input type="email" name="email" required class="cyber-input" 
+                           placeholder="ivan@example.com">
+                    <span class="input-focus-border"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label>ПАРОЛЬ</label>
+                    <input type="password" name="password" required class="cyber-input" 
+                           placeholder="••••••••">
+                    <span class="input-focus-border"></span>
+                </div>
+                
+                <div class="form-group remember-me">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="remember">
+                        <span class="checkbox-custom"></span>
+                        <span>Запомнить меня</span>
+                    </label>
+                    <a href="#" class="forgot-password">Забыли пароль?</a>
+                </div>
+                
+                <button type="submit" class="btn-primary btn-block">
+                    <span>ВОЙТИ</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+            
+            <div class="modal-footer">
+                <p>Нет аккаунта? <a href="#" onclick="switchModal('register')">Зарегистрироваться</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно регистрации -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>РЕГИСТРАЦИЯ</h3>
+                <button class="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <form id="registerForm" class="cyber-form">
+                <div class="form-group">
+                    <label>ТИП АККАУНТА</label>
+                    <div class="user-type-selector">
+                        <label class="type-option">
+                            <input type="radio" name="user_type" value="customer" checked>
+                            <span class="type-card">
+                                <i class="fas fa-briefcase"></i>
+                                <span>ЗАКАЗЧИК</span>
+                            </span>
+                        </label>
+                        <label class="type-option">
+                            <input type="radio" name="user_type" value="executor">
+                            <span class="type-card">
+                                <i class="fas fa-code"></i>
+                                <span>ИСПОЛНИТЕЛЬ</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>ПОЛНОЕ ИМЯ</label>
+                    <input type="text" name="name" required class="cyber-input" 
+                           placeholder="Иван Петров">
+                </div>
+                
+                <div class="form-group">
+                    <label>EMAIL</label>
+                    <input type="email" name="email" required class="cyber-input" 
+                           placeholder="ivan@example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label>ПАРОЛЬ</label>
+                    <input type="password" name="password" required minlength="6" class="cyber-input" 
+                           placeholder="Минимум 6 символов">
+                    <div class="password-strength">
+                        <div class="strength-bar"></div>
+                    </div>
+                </div>
+                
+                <div class="form-group skills-group" style="display: none;">
+                    <label>НАВЫКИ (для исполнителя)</label>
+                    <select name="skills" multiple class="cyber-select">
+                        <option value="1">PHP / Laravel</option>
+                        <option value="2">JavaScript / React</option>
+                        <option value="3">Python / Django</option>
+                        <option value="4">UI/UX Design</option>
+                        <option value="5">SEO оптимизация</option>
+                        <option value="6">Project Management</option>
+                    </select>
+                </div>
+                
+                <div class="form-group terms-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="terms" required>
+                        <span class="checkbox-custom"></span>
+                        <span>Я принимаю <a href="#">условия использования</a></span>
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn-primary btn-block">
+                    <span>ЗАРЕГИСТРИРОВАТЬСЯ</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+            
+            <div class="modal-footer">
+                <p>Уже есть аккаунт? <a href="#" onclick="switchModal('login')">Войти</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно создания проекта -->
+    <div class="modal" id="createProjectModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>СОЗДАНИЕ ПРОЕКТА</h3>
+                <button class="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            
+            <form id="createProjectForm" class="cyber-form">
+                <div class="form-group">
+                    <label>НАЗВАНИЕ ПРОЕКТА</label>
+                    <input type="text" name="title" required class="cyber-input" 
+                           placeholder="Например: Разработка CRM системы">
+                </div>
+                
+                <div class="form-group">
+                    <label>ОПИСАНИЕ</label>
+                    <textarea name="description" required class="cyber-input" rows="5" 
+                              placeholder="Подробно опишите задачу..."></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label>БЮДЖЕТ ОТ</label>
+                        <input type="number" name="budget_min" class="cyber-input" 
+                               placeholder="100000">
+                    </div>
+                    <div class="form-group half">
+                        <label>БЮДЖЕТ ДО</label>
+                        <input type="number" name="budget_max" class="cyber-input" 
+                               placeholder="500000">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group half">
+                        <label>КАТЕГОРИЯ</label>
+                        <select name="category" class="cyber-select">
+                            <option value="development">Разработка</option>
+                            <option value="design">Дизайн</option>
+                            <option value="marketing">Маркетинг</option>
+                            <option value="seo">SEO</option>
+                        </select>
+                    </div>
+                    <div class="form-group half">
+                        <label>ДЕДЛАЙН</label>
+                        <input type="date" name="deadline" class="cyber-input">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>ТРЕБУЕМЫЕ НАВЫКИ</label>
+                    <select name="skills" multiple class="cyber-select" size="4">
+                        <option value="1">PHP</option>
+                        <option value="2">JavaScript</option>
+                        <option value="3">Python</option>
+                        <option value="4">UI/UX</option>
+                        <option value="5">SEO</option>
+                        <option value="6">Project Management</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="btn-primary btn-block">
+                    <span>ОПУБЛИКОВАТЬ ПРОЕКТ</span>
+                    <i class="fas fa-rocket"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/core.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/projects.js"></script>
+    <script>
+        // Переключение между модальными окнами
+        function switchModal(type) {
+            closeModal(document.querySelector('.modal.active'));
+            openModal(type);
+        }
+        
+        // Плавный скролл к аналитике
+        function scrollToAnalysis() {
+            document.getElementById('analysis').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Переключение вкладок аналитики
+        function switchAnalysis(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tab + '-analysis').classList.add('active');
+        }
+        
+        // Показ поля навыков при выборе исполнителя
+        document.querySelectorAll('input[name="user_type"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const skillsGroup = document.querySelector('.skills-group');
+                if (this.value === 'executor') {
+                    skillsGroup.style.display = 'block';
+                } else {
+                    skillsGroup.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

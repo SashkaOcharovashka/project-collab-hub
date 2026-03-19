@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Дашборд | Project Collab Hub</title>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <style>
+        /* Специфичные стили для SEO дашборда */
+        .seo-dashboard-page {
+            background: var(--primary-bg);
+            min-height: 100vh;
+            padding: 100px 30px 30px;
+        }
+        
+        .dashboard-header {
+            margin-bottom: 40px;
+        }
+        
+        .dashboard-header h1 {
+            font-size: 48px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff, var(--accent-primary));
+            -webkit-background: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .dashboard-header p {
+            color: var(--text-secondary);
+            font-size: 18px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(43, 127, 255, 0.2);
+        }
+        
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-primary), #4d9eff);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+        }
+        
+        .stat-content h3 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+        
+        .stat-content p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .dashboard-card {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 25px;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .card-header h2 {
+            font-size: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-header h2 i {
+            color: var(--accent-primary);
+        }
+        
+        .badge {
+            background: var(--tertiary-bg);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        /* Технический аудит (Задание 8) */
+        .audit-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .audit-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            background: var(--tertiary-bg);
+            border-radius: 10px;
+        }
+        
+        .audit-status {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        
+        .status-success {
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+        }
+        
+        .status-warning {
+            background: rgba(241, 196, 15, 0.2);
+            color: #f1c40f;
+        }
+        
+        .status-error {
+            background: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
+        }
+        
+        .audit-info {
+            flex: 1;
+        }
+        
+        .audit-title {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        
+        .audit-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .audit-action {
+            padding: 5px 12px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .audit-action:hover {
+            background: var(--accent-primary);
+            border-color: var(--accent-primary);
+        }
+        
+        /* Семантическое ядро (Задание 10) */
+        .keywords-input {
+            margin-bottom: 20px;
+        }
+        
+        .keywords-textarea {
+            width: 100%;
+            height: 150px;
+            background: var(--tertiary-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 15px;
+            border-radius: 10px;
+            font-family: inherit;
+            margin-bottom: 15px;
+        }
+        
+        .keywords-textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+        
+        .clusters-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .cluster-card {
+            background: var(--tertiary-bg);
+            border-radius: 10px;
+            padding: 15px;
+        }
+        
+        .cluster-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .cluster-name {
+            font-weight: 600;
+            color: var(--accent-primary);
+        }
+        
+        .cluster-count {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .cluster-keywords {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .keyword-tag {
+            background: var(--secondary-bg);
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            border: 1px solid var(--border-color);
+        }
+        
+        /* Анализ конкурентов (Задание 8) */
+        .competitors-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .competitors-table th {
+            text-align: left;
+            padding: 12px;
+            background: var(--tertiary-bg);
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .competitors-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .competitors-table tr:hover td {
+            background: rgba(43, 127, 255, 0.1);
+        }
+        
+        .highlight-row {
+            background: rgba(43, 127, 255, 0.15);
+            font-weight: 600;
+        }
+        
+        .highlight-row td:first-child {
+            color: var(--accent-primary);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--tertiary-bg);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-primary), #4d9eff);
+            border-radius: 4px;
+        }
+        
+        /* Оптимизация изображений (Задание 14) */
+        .image-optimizer {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .image-preview {
+            background: var(--tertiary-bg);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .image-preview img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .image-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .image-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .image-input-group label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .image-input {
+            background: var(--tertiary-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 10px;
+            border-radius: 6px;
+        }
+        
+        .image-input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+        
+        /* Резервное копирование (Задание 8) */
+        .backup-list {
+            margin-top: 20px;
+        }
+        
+        .backup-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: var(--tertiary-bg);
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .backup-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .backup-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(43, 127, 255, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-primary);
+        }
+        
+        .backup-details h4 {
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+        
+        .backup-details p {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .backup-size {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .backup-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .backup-btn {
+            padding: 6px 12px;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .backup-btn:hover {
+            background: var(--accent-primary);
+            border-color: var(--accent-primary);
+        }
+        
+        /* Скорость загрузки */
+        .speed-meter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px 0;
+        }
+        
+        .meter-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: conic-gradient(var(--accent-primary) 0deg 280deg, var(--tertiary-bg) 280deg 360deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .meter-inner {
+            width: 160px;
+            height: 160px;
+            background: var(--secondary-bg);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .meter-value {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent-primary);
+        }
+        
+        .meter-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 1200px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .image-optimizer {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .competitors-table {
+                font-size: 12px;
+            }
+            
+            .backup-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .backup-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="cyber-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-glow">◈</span>
+                <span class="logo-text">PROJECT<span class="accent">COLLAB</span>HUB</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">ГЛАВНАЯ</a>
+                <a href="projects.html" class="nav-link">ПРОЕКТЫ</a>
+                <a href="kanban.html" class="nav-link">KANBAN</a>
+                <a href="security-lab.html" class="nav-link">БЕЗОПАСНОСТЬ</a>
+                <a href="seo-dashboard.html" class="nav-link active">SEO</a>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="btn-ghost" onclick="openModal('login')">
+                    <i class="fas fa-user-shield"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="seo-dashboard-page">
+        <div class="dashboard-header">
+            <h1>SEO ДАШБОРД</h1>
+            <p>Комплексный анализ и оптимизация для поисковых систем</p>
+        </div>
+
+        <!-- Статистика -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>87</h3>
+                    <p>Общий SEO-скoр</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-key"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>1,234</h3>
+                    <p>Ключевых слов</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-link"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>156</h3>
+                    <p>Внешних ссылок</p>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <div class="stat-content">
+                    <h3>2.4с</h3>
+                    <p>Скорость загрузки</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Основная сетка -->
+        <div class="dashboard-grid">
+            <!-- Технический SEO аудит (Задание 8) -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-robot"></i> Технический SEO аудит</h2>
+                    <span class="badge">8 проверок</span>
+                </div>
+                
+                <div class="audit-list">
+                    <div class="audit-item">
+                        <div class="audit-status status-success">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="audit-info">
+                            <div class="audit-title">robots.txt</div>
+                            <div class="audit-desc">Файл найден, содержит Sitemap</div>
+                        </div>
+                        <button class="audit-action" onclick="viewRobots()">Просмотр</button>
+                    </div>
+                    
+                    <div class="audit-item">
+                        <div class="audit-status status-success">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="audit-info">
+                            <div class="audit-title">sitemap.xml</div>
+                            <div class="audit-desc">156 URL, последнее обновление сегодня</div>
+                        </div>
+                        <button class="audit-action" onclick="viewSitemap()">Просмотр</button>
+                    </div>
+                    
+                    <div class="audit-item">
+                        <div class="audit-status status-success">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="audit-info">
+                            <div class="audit-title">SSL сертификат</div>
+                            <div class="audit-desc">Действителен до 31.12.2026</div>
+                        </div>
+                        <button class="audit-action" onclick="checkSSL()">Проверить</button>
+                    </div>
+                    
+                    <div class="audit-item">
+                        <div class="audit-status status-warning">
+                            <i class="fas fa-exclamation"></i>
+                        </div>
+                        <div class="audit-info">
+                            <div class="audit-title">Мета-теги</div>
+                            <div class="audit-desc">3 страницы без description</div>
+                        </div>
+                        <button class="audit-action" onclick="fixMetaTags()">Исправить</button>
+                    </div>
+                    
+                    <div class="audit-item">
+                        <div class="audit-status status-success">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="audit-info">
+                            <div class="audit-title">Канонические URL</div>
+                            <div class="audit-desc">Все страницы имеют canonical</div>
+                        </div>
+                    </div>
+                    
+                    <div class="audit-item">
+                        <div class="audit-status status-error">
+                            <i class="fas fa-times"></i>
+                        </div>
+                        <div class="audit-info">
+                            <div class="audit-title">Битые ссылки</div>
+                            <div class="audit-desc">Найдено 5 битых ссылок</div>
+                        </div>
+                        <button class="audit-action" onclick="fixBrokenLinks()">Исправить</button>
+                    </div>
+                    
+                    <div class="audit-item">
+                        <div class="audit-status status-success">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="audit-info">
+                            <div class="audit-title">Коды ответа</div>
+                            <div class="audit-desc">200 OK для всех страниц</div>
+                        </div>
+                    </div>
+                    
+                    <div class="audit-item">
+                        <div class="audit-status status-warning">
+                            <i class="fas fa-exclamation"></i>
+                        </div>
+                        <div class="audit-info">
+                            <div class="audit-title">Дубли страниц</div>
+                            <div class="audit-desc">2 дубля с параметрами</div>
+                        </div>
+                        <button class="audit-action" onclick="fixDuplicates()">Исправить</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Семантическое ядро (Задание 10) -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-key"></i> Семантическое ядро</h2>
+                    <span class="badge">Кластеризация</span>
+                </div>
+                
+                <div class="keywords-input">
+                    <textarea class="keywords-textarea" id="keywordsText" placeholder="Введите ключевые слова (по одному в строке)">разработка сайта
+создание сайта
+заказать сайт
+веб студия
+интернет магазин
+seo продвижение
+раскрутка сайта
+оптимизация сайта
+контекстная реклама
+таргетинг
+продвижение в яндексе
+продвижение в гугле
+аудит сайта
+юзабилити аудит
+технический аудит</textarea>
+                    
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn-primary" onclick="clusterKeywords()" style="flex: 1;">
+                            <i class="fas fa-project-diagram"></i>
+                            Кластеризовать
+                        </button>
+                        <button class="btn-ghost" onclick="clearKeywords()">
+                            <i class="fas fa-undo"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="clusters-container" id="clustersContainer">
+                    <!-- Кластеры будут добавлены через JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Вторая сетка -->
+        <div class="dashboard-grid">
+            <!-- Анализ конкурентов (Задание 8) -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-chart-bar"></i> Анализ конкурентов</h2>
+                    <span class="badge">Топ-5</span>
+                </div>
+                
+                <table class="competitors-table">
+                    <thead>
+                        <tr>
+                            <th>Сайт</th>
+                            <th>DR</th>
+                            <th>Трафик</th>
+                            <th>Ключевых слов</th>
+                            <th>Страниц</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>freelance.ru</td>
+                            <td>72</td>
+                            <td>1.2M</td>
+                            <td>45K</td>
+                            <td>125K</td>
+                        </tr>
+                        <tr>
+                            <td>habr.com</td>
+                            <td>85</td>
+                            <td>5.6M</td>
+                            <td>128K</td>
+                            <td>342K</td>
+                        </tr>
+                        <tr>
+                            <td>tproger.ru</td>
+                            <td>64</td>
+                            <td>890K</td>
+                            <td>23K</td>
+                            <td>78K</td>
+                        </tr>
+                        <tr>
+                            <td>vc.ru</td>
+                            <td>78</td>
+                            <td>2.1M</td>
+                            <td>67K</td>
+                            <td>189K</td>
+                        </tr>
+                        <tr class="highlight-row">
+                            <td>projectcollabhub.ru</td>
+                            <td>45</td>
+                            <td>234K</td>
+                            <td>12K</td>
+                            <td>56K</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div style="margin-top: 20px;">
+                    <h4 style="margin-bottom: 10px;">Доля видимости</h4>
+                    <div style="display: flex; gap: 20px; align-items: center;">
+                        <div style="flex: 1;">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 32%"></div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; margin-top: 5px;">
+                                <span style="font-size: 12px;">Upwork 32%</span>
+                                <span style="font-size: 12px;">Freelancer 28%</span>
+                                <span style="font-size: 12px;">Fiverr 25%</span>
+                                <span style="font-size: 12px;">Toptal 15%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Оптимизация изображений (Задание 14) -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-image"></i> Оптимизация изображений</h2>
+                    <span class="badge">ALT и Title</span>
+                </div>
+                
+                <div class="image-optimizer">
+                    <div class="image-preview">
+                        <img src="https://via.placeholder.com/300x200/2B7FFF/FFFFFF?text=Project+Collab+Hub" alt="Project Collab Hub Preview" id="previewImage">
+                        <div style="font-size: 12px; color: var(--text-secondary);">
+                            Размер: 45KB | 300x200px
+                        </div>
+                    </div>
+                    
+                    <div class="image-controls">
+                        <div class="image-input-group">
+                            <label>ALT текст</label>
+                            <input type="text" class="image-input" id="altText" value="Project Collab Hub - платформа для совместной работы">
+                        </div>
+                        
+                        <div class="image-input-group">
+                            <label>Title текст</label>
+                            <input type="text" class="image-input" id="titleText" value="Project Collab Hub | Платформа для коллаборации">
+                        </div>
+                        
+                        <button class="btn-primary" onclick="optimizeImage()">
+                            <i class="fas fa-check"></i>
+                            Применить оптимизацию
+                        </button>
+                        
+                        <div style="background: var(--tertiary-bg); border-radius: 8px; padding: 10px; margin-top: 10px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span style="font-size: 12px;">Экономия:</span>
+                                <span style="font-size: 12px; color: #2ecc71;">-65%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 65%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Третья сетка -->
+        <div class="dashboard-grid">
+            <!-- Резервное копирование (Задание 8) -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-database"></i> Резервное копирование</h2>
+                    <span class="badge">Автоматически</span>
+                </div>
+                
+                <div style="display: flex; gap: 15px; margin-bottom: 20px;">
+                    <button class="btn-primary" onclick="createBackup()" style="flex: 1;">
+                        <i class="fas fa-plus"></i>
+                        Создать бэкап
+                    </button>
+                    <button class="btn-ghost" onclick="restoreBackup()" style="flex: 1;">
+                        <i class="fas fa-undo"></i>
+                        Восстановить
+                    </button>
+                </div>
+                
+                <div class="backup-list">
+                    <div class="backup-item">
+                        <div class="backup-info">
+                            <div class="backup-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="backup-details">
+                                <h4>backup-2026-03-18-15-30.zip</h4>
+                                <p>База данных + файлы</p>
+                            </div>
+                        </div>
+                        <div class="backup-size">156 MB</div>
+                        <div class="backup-actions">
+                            <button class="backup-btn" onclick="downloadBackup('1')">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button class="backup-btn" onclick="restoreBackup('1')">
+                                <i class="fas fa-undo"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="backup-item">
+                        <div class="backup-info">
+                            <div class="backup-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="backup-details">
+                                <h4>backup-2026-03-17-15-30.zip</h4>
+                                <p>Только база данных</p>
+                            </div>
+                        </div>
+                        <div class="backup-size">142 MB</div>
+                        <div class="backup-actions">
+                            <button class="backup-btn" onclick="downloadBackup('2')">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button class="backup-btn" onclick="restoreBackup('2')">
+                                <i class="fas fa-undo"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="backup-item">
+                        <div class="backup-info">
+                            <div class="backup-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="backup-details">
+                                <h4>backup-2026-03-16-15-30.zip</h4>
+                                <p>Только файлы</p>
+                            </div>
+                        </div>
+                        <div class="backup-size">98 MB</div>
+                        <div class="backup-actions">
+                            <button class="backup-btn" onclick="downloadBackup('3')">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button class="backup-btn" onclick="restoreBackup('3')">
+                                <i class="fas fa-undo"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Скорость загрузки (Задание 8) -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h2><i class="fas fa-tachometer-alt"></i> Скорость загрузки</h2>
+                    <span class="badge">PageSpeed Insights</span>
+                </div>
+                
+                <div class="speed-meter">
+                    <div class="meter-circle">
+                        <div class="meter-inner">
+                            <div class="meter-value">87</div>
+                            <div class="meter-label">из 100</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 20px; justify-content: center; margin: 20px 0;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: 700; color: #3498db;">2.4с</div>
+                        <div style="font-size: 12px; color: var(--text-secondary);">Desktop</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; font-weight: 700; color: #f39c12;">3.1с</div>
+                        <div style="font-size: 12px; color: var(--text-secondary);">Mobile</div>
+                    </div>
+                </div>
+                
+                <div style="background: var(--tertiary-bg); border-radius: 10px; padding: 15px;">
+                    <h4 style="margin-bottom: 10px;">Рекомендации:</h4>
+                    <ul style="list-style: none;">
+                        <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                            <i class="fas fa-check-circle" style="color: #2ecc71;"></i>
+                            <span style="font-size: 13px;">Оптимизировать изображения</span>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                            <i class="fas fa-check-circle" style="color: #2ecc71;"></i>
+                            <span style="font-size: 13px;">Минифицировать CSS/JS</span>
+                        </li>
+                        <li style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                            <i class="fas fa-clock" style="color: #f39c12;"></i>
+                            <span style="font-size: 13px;">Использовать кэширование</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/core.js"></script>
+    <script src="../js/seo.js"></script>
+    <script>
+        // Функции для SEO дашборда
+        
+        // Кластеризация ключевых слов (Задание 11)
+        function clusterKeywords() {
+            const text = document.getElementById('keywordsText').value;
+            const keywords = text.split('\n').filter(k => k.trim() !== '');
+            
+            // Простая кластеризация по общим словам
+            const clusters = [];
+            const processed = new Set();
+            
+            const categories = {
+                'разработка': ['разработка', 'создание', 'заказать', 'веб', 'интернет'],
+                'seo': ['seo', 'продвижение', 'раскрутка', 'оптимизация', 'аудит'],
+                'реклама': ['реклама', 'таргетинг', 'контекстная']
+            };
+            
+            // Распределяем по категориям
+            const categorized = {
+                'Разработка сайтов': [],
+                'SEO продвижение': [],
+                'Реклама': [],
+                'Другое': []
+            };
+            
+            keywords.forEach(keyword => {
+                const kw = keyword.toLowerCase();
+                if (kw.includes('разработка') || kw.includes('создание') || kw.includes('заказать') || kw.includes('веб') || kw.includes('интернет')) {
+                    categorized['Разработка сайтов'].push(keyword);
+                } else if (kw.includes('seo') || kw.includes('продвижение') || kw.includes('раскрутка') || kw.includes('оптимизация') || kw.includes('аудит')) {
+                    categorized['SEO продвижение'].push(keyword);
+                } else if (kw.includes('реклама') || kw.includes('таргетинг') || kw.includes('контекст')) {
+                    categorized['Реклама'].push(keyword);
+                } else {
+                    categorized['Другое'].push(keyword);
+                }
+            });
+            
+            // Отображаем кластеры
+            const container = document.getElementById('clustersContainer');
+            container.innerHTML = '';
+            
+            for (const [category, words] of Object.entries(categorized)) {
+                if (words.length > 0) {
+                    const clusterDiv = document.createElement('div');
+                    clusterDiv.className = 'cluster-card';
+                    clusterDiv.innerHTML = `
+                        <div class="cluster-header">
+                            <span class="cluster-name">${category}</span>
+                            <span class="cluster-count">${words.length} ключей</span>
+                        </div>
+                        <div class="cluster-keywords">
+                            ${words.map(w => `<span class="keyword-tag">${w}</span>`).join('')}
+                        </div>
+                    `;
+                    container.appendChild(clusterDiv);
+                }
+            }
+            
+            if (window.app) {
+                app.showNotification('Кластеризация завершена', 'success');
+            }
+        }
+        
+        function clearKeywords() {
+            document.getElementById('keywordsText').value = '';
+            document.getElementById('clustersContainer').innerHTML = '';
+        }
+        
+        // Оптимизация изображений
+        function optimizeImage() {
+            const alt = document.getElementById('altText').value;
+            const title = document.getElementById('titleText').value;
+            
+            const img = document.getElementById('previewImage');
+            img.alt = alt;
+            img.title = title;
+            
+            if (window.app) {
+                app.showNotification('Изображение оптимизировано', 'success');
+            }
+        }
+        
+        // Резервное копирование
+        function createBackup() {
+            if (window.app) {
+                app.showNotification('Создание резервной копии...', 'info');
+                
+                setTimeout(() => {
+                    app.showNotification('Резервная копия создана', 'success');
+                    
+                    // Добавляем новый бэкап в список
+                    const backupList = document.querySelector('.backup-list');
+                    const newBackup = document.createElement('div');
+                    newBackup.className = 'backup-item';
+                    newBackup.innerHTML = `
+                        <div class="backup-info">
+                            <div class="backup-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="backup-details">
+                                <h4>backup-${new Date().toISOString().slice(0,10)}-15-30.zip</h4>
+                                <p>Новый бэкап</p>
+                            </div>
+                        </div>
+                        <div class="backup-size">156 MB</div>
+                        <div class="backup-actions">
+                            <button class="backup-btn" onclick="downloadBackup('new')">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button class="backup-btn" onclick="restoreBackup('new')">
+                                <i class="fas fa-undo"></i>
+                            </button>
+                        </div>
+                    `;
+                    backupList.insertBefore(newBackup, backupList.firstChild);
+                }, 2000);
+            }
+        }
+        
+        function restoreBackup(id) {
+            if (confirm('Восстановить эту резервную копию?')) {
+                if (window.app) {
+                    app.showNotification('Восстановление...', 'info');
+                    
+                    setTimeout(() => {
+                        app.showNotification('Восстановление завершено', 'success');
+                    }, 3000);
+                }
+            }
+        }
+        
+        function downloadBackup(id) {
+            if (window.app) {
+                app.showNotification('Скачивание начато', 'info');
+            }
+        }
+        
+        // Технический аудит
+        function viewRobots() {
+            if (window.app) {
+                app.showNotification('robots.txt: User-agent: * Allow: /', 'info');
+            }
+        }
+        
+        function viewSitemap() {
+            if (window.app) {
+                app.showNotification('sitemap.xml содержит 156 URL', 'info');
+            }
+        }
+        
+        function checkSSL() {
+            if (window.app) {
+                app.showNotification('SSL сертификат действителен до 31.12.2026', 'success');
+            }
+        }
+        
+        function fixMetaTags() {
+            if (window.app) {
+                app.showNotification('Исправление мета-тегов...', 'info');
+                
+                setTimeout(() => {
+                    app.showNotification('3 страницы обновлены', 'success');
+                    
+                    // Обновляем статус
+                    const auditItem = document.querySelector('.audit-item:nth-child(4) .audit-status');
+                    auditItem.className = 'audit-status status-success';
+                    auditItem.innerHTML = '<i class="fas fa-check"></i>';
+                }, 1500);
+            }
+        }
+        
+        function fixBrokenLinks() {
+            if (window.app) {
+                app.showNotification('Проверка битых ссылок...', 'info');
+                
+                setTimeout(() => {
+                    app.showNotification('Найдено 5 битых ссылок, 3 исправлено', 'warning');
+                }, 2000);
+            }
+        }
+        
+        function fixDuplicates() {
+            if (window.app) {
+                app.showNotification('Устранение дублей...', 'info');
+                
+                setTimeout(() => {
+                    app.showNotification('Дубли устранены', 'success');
+                    
+                    // Обновляем статус
+                    const auditItem = document.querySelector('.audit-item:last-child .audit-status');
+                    auditItem.className = 'audit-status status-success';
+                    auditItem.innerHTML = '<i class="fas fa-check"></i>';
+                }, 1500);
+            }
+        }
+        
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            // Запускаем демо-кластеризацию
+            setTimeout(() => {
+                clusterKeywords();
+            }, 500);
+        });
+    </script>
+</body>
+</html>

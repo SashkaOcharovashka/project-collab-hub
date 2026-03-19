@@ -1,0 +1,1104 @@
+/* ===== ANIMATIONS.CSS - АНИМАЦИИ ===== */
+
+/* ===== Базовые анимации ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes scaleInBounce {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes rotateIn {
+    from {
+        opacity: 0;
+        transform: rotate(-180deg);
+    }
+    to {
+        opacity: 1;
+        transform: rotate(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+/* ===== Анимации появления ===== */
+.fade-in {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.fade-in-down {
+    animation: fadeInDown 0.6s ease forwards;
+}
+
+.fade-in-left {
+    animation: fadeInLeft 0.6s ease forwards;
+}
+
+.fade-in-right {
+    animation: fadeInRight 0.6s ease forwards;
+}
+
+.scale-in {
+    animation: scaleIn 0.5s ease forwards;
+}
+
+.scale-in-bounce {
+    animation: scaleInBounce 0.8s ease forwards;
+}
+
+.rotate-in {
+    animation: rotateIn 0.6s ease forwards;
+}
+
+/* ===== Анимации с задержкой ===== */
+.delay-1 {
+    animation-delay: 0.1s;
+}
+
+.delay-2 {
+    animation-delay: 0.2s;
+}
+
+.delay-3 {
+    animation-delay: 0.3s;
+}
+
+.delay-4 {
+    animation-delay: 0.4s;
+}
+
+.delay-5 {
+    animation-delay: 0.5s;
+}
+
+.delay-6 {
+    animation-delay: 0.6s;
+}
+
+.delay-7 {
+    animation-delay: 0.7s;
+}
+
+.delay-8 {
+    animation-delay: 0.8s;
+}
+
+.delay-9 {
+    animation-delay: 0.9s;
+}
+
+.delay-10 {
+    animation-delay: 1s;
+}
+
+/* ===== Бесконечные анимации ===== */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes pulseGlow {
+    0%, 100% {
+        box-shadow: 0 0 20px var(--accent-glow);
+    }
+    50% {
+        box-shadow: 0 0 40px var(--accent-glow);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes floatHorizontal {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(10px);
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spinReverse {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+@keyframes wave {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes bounce2 {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    30% {
+        transform: translateY(-20px) scale(1.1);
+    }
+    50% {
+        transform: translateY(0) scale(0.95);
+    }
+    80% {
+        transform: translateY(-10px) scale(1.02);
+    }
+}
+
+.pulse {
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.pulse-glow {
+    animation: pulseGlow 2s infinite ease-in-out;
+}
+
+.float {
+    animation: float 3s infinite ease-in-out;
+}
+
+.float-horizontal {
+    animation: floatHorizontal 4s infinite ease-in-out;
+}
+
+.spin {
+    animation: spin 3s infinite linear;
+}
+
+.spin-reverse {
+    animation: spinReverse 3s infinite linear;
+}
+
+.blink {
+    animation: blink 2s infinite ease-in-out;
+}
+
+.shimmer {
+    position: relative;
+    overflow: hidden;
+}
+
+.shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    animation: wave 2s infinite;
+}
+
+.bounce {
+    animation: bounce 2s infinite ease-in-out;
+}
+
+.bounce2 {
+    animation: bounce2 2s infinite ease-in-out;
+}
+
+/* ===== Анимации для текста ===== */
+@keyframes glitch {
+    0%, 100% {
+        transform: skew(0deg);
+        text-shadow: 
+            -2px 0 var(--accent-primary),
+            2px 0 var(--accent-secondary);
+    }
+    20% {
+        transform: skew(5deg);
+        text-shadow: 
+            -3px 0 var(--danger-color),
+            3px 0 var(--success-color);
+    }
+    40% {
+        transform: skew(-5deg);
+        text-shadow: 
+            3px 0 var(--accent-primary),
+            -3px 0 var(--accent-secondary);
+    }
+    60% {
+        transform: skew(3deg);
+        text-shadow: 
+            -4px 0 var(--success-color),
+            4px 0 var(--danger-color);
+    }
+    80% {
+        transform: skew(-3deg);
+        text-shadow: 
+            2px 0 var(--accent-secondary),
+            -2px 0 var(--accent-primary);
+    }
+}
+
+@keyframes glitch2 {
+    0%, 100% {
+        transform: translate(0);
+        opacity: 1;
+    }
+    20% {
+        transform: translate(-5px, 2px);
+        opacity: 0.8;
+    }
+    40% {
+        transform: translate(5px, -2px);
+        opacity: 0.9;
+    }
+    60% {
+        transform: translate(-3px, 1px);
+        opacity: 0.7;
+    }
+    80% {
+        transform: translate(3px, -1px);
+        opacity: 0.8;
+    }
+}
+
+@keyframes typewriter {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes blinkCursor {
+    from, to {
+        border-color: transparent;
+    }
+    50% {
+        border-color: var(--accent-primary);
+    }
+}
+
+@keyframes textGlow {
+    0%, 100% {
+        text-shadow: 0 0 20px var(--accent-glow);
+    }
+    50% {
+        text-shadow: 0 0 40px var(--accent-glow), 0 0 60px var(--accent-primary);
+    }
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.glitch-text {
+    animation: glitch 4s infinite;
+}
+
+.glitch-text-2 {
+    animation: glitch2 3s infinite;
+}
+
+.typewriter {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 3px solid var(--accent-primary);
+    animation: 
+        typewriter 3s steps(40) 1s 1 normal both,
+        blinkCursor 1s steps(1) infinite;
+}
+
+.text-glow {
+    animation: textGlow 3s infinite;
+}
+
+.gradient-shift {
+    background: linear-gradient(270deg, var(--accent-primary), var(--accent-secondary), var(--accent-primary));
+    background-size: 200% 100%;
+    -webkit-background: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 5s infinite;
+}
+
+/* ===== Анимации для карточек ===== */
+@keyframes cardHover {
+    0% {
+        transform: translateY(0);
+        box-shadow: var(--card-shadow);
+    }
+    100% {
+        transform: translateY(-10px);
+        box-shadow: var(--card-shadow-hover);
+    }
+}
+
+@keyframes cardPulse {
+    0%, 100% {
+        transform: scale(1);
+        border-color: var(--border-color);
+    }
+    50% {
+        transform: scale(1.02);
+        border-color: var(--accent-primary);
+    }
+}
+
+.card-hover {
+    transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+    animation: cardHover 0.3s forwards;
+}
+
+.card-pulse {
+    animation: cardPulse 2s infinite;
+}
+
+/* ===== Анимации для кнопок ===== */
+@keyframes buttonPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(43, 127, 255, 0.3);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 8px 25px rgba(43, 127, 255, 0.5);
+    }
+}
+
+@keyframes buttonWobble {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    15% {
+        transform: translateX(-5px);
+    }
+    30% {
+        transform: translateX(5px);
+    }
+    45% {
+        transform: translateX(-3px);
+    }
+    60% {
+        transform: translateX(3px);
+    }
+    75% {
+        transform: translateX(-1px);
+    }
+    90% {
+        transform: translateX(1px);
+    }
+}
+
+.btn-pulse {
+    animation: buttonPulse 2s infinite;
+}
+
+.btn-wobble:hover {
+    animation: buttonWobble 0.8s ease;
+}
+
+/* ===== Анимации для загрузчиков ===== */
+@keyframes loaderPulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.5;
+    }
+}
+
+@keyframes loaderSpin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes loaderBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes loaderWave {
+    0%, 60%, 100% {
+        transform: scaleY(0.5);
+    }
+    30% {
+        transform: scaleY(1.5);
+    }
+}
+
+.loader-pulse div {
+    animation: loaderPulse 1.2s infinite;
+}
+
+.loader-spin {
+    animation: loaderSpin 1s infinite linear;
+}
+
+.loader-bounce div {
+    animation: loaderBounce 1.4s infinite ease-in-out;
+}
+
+.loader-wave div {
+    animation: loaderWave 1.2s infinite ease-in-out;
+}
+
+/* ===== Анимации для модальных окон ===== */
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes modalSlideOut {
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+    }
+}
+
+@keyframes modalBackdropIn {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0);
+    }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(10px);
+    }
+}
+
+.modal-slide-in {
+    animation: modalSlideIn 0.4s ease forwards;
+}
+
+.modal-slide-out {
+    animation: modalSlideOut 0.3s ease forwards;
+}
+
+.modal-backdrop-in {
+    animation: modalBackdropIn 0.3s ease forwards;
+}
+
+/* ===== Анимации для уведомлений ===== */
+@keyframes notificationSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(120%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes notificationSlideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(120%);
+    }
+}
+
+@keyframes notificationProgress {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0%;
+    }
+}
+
+.notification-slide-in {
+    animation: notificationSlideIn 0.3s ease forwards;
+}
+
+.notification-slide-out {
+    animation: notificationSlideOut 0.3s ease forwards;
+}
+
+.notification-progress {
+    animation: notificationProgress 3s linear forwards;
+}
+
+/* ===== Анимации для страниц ===== */
+@keyframes pageTransition {
+    from {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pageLeave {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+}
+
+.page-enter {
+    animation: pageTransition 0.4s ease forwards;
+}
+
+.page-leave {
+    animation: pageLeave 0.3s ease forwards;
+}
+
+/* ===== Анимации для меню ===== */
+@keyframes menuSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes menuFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.menu-slide-in {
+    animation: menuSlideIn 0.3s ease forwards;
+}
+
+.menu-fade-in {
+    animation: menuFadeIn 0.3s ease forwards;
+}
+
+/* ===== Анимации для счетчиков ===== */
+@keyframes countUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.count-up {
+    animation: countUp 0.5s ease forwards;
+}
+
+/* ===== Анимации для сетки ===== */
+@keyframes gridFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.grid-fade-in > * {
+    animation: gridFadeIn 0.5s ease forwards;
+    opacity: 0;
+}
+
+.grid-fade-in > *:nth-child(1) { animation-delay: 0.1s; }
+.grid-fade-in > *:nth-child(2) { animation-delay: 0.2s; }
+.grid-fade-in > *:nth-child(3) { animation-delay: 0.3s; }
+.grid-fade-in > *:nth-child(4) { animation-delay: 0.4s; }
+.grid-fade-in > *:nth-child(5) { animation-delay: 0.5s; }
+.grid-fade-in > *:nth-child(6) { animation-delay: 0.6s; }
+
+/* ===== Анимации для фона ===== */
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes particleFloat {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+    }
+    25% {
+        transform: translateY(-20px) translateX(10px);
+    }
+    50% {
+        transform: translateY(0) translateX(20px);
+    }
+    75% {
+        transform: translateY(20px) translateX(10px);
+    }
+}
+
+@keyframes gridMove {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(50px, 50px);
+    }
+}
+
+.gradient-bg {
+    background: linear-gradient(270deg, var(--primary-bg), var(--secondary-bg), var(--primary-bg));
+    background-size: 300% 100%;
+    animation: gradientBG 10s infinite;
+}
+
+.particles {
+    position: relative;
+    overflow: hidden;
+}
+
+.particles::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 20% 30%, rgba(43, 127, 255, 0.1) 0%, transparent 50%);
+    animation: particleFloat 20s infinite;
+}
+
+.grid-bg {
+    position: relative;
+}
+
+.grid-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(43, 127, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(43, 127, 255, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridMove 20s linear infinite;
+    pointer-events: none;
+}
+
+/* ===== Анимации для иконок ===== */
+@keyframes iconBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes iconRotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes iconPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+@keyframes iconShake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-5px);
+    }
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+.icon-bounce {
+    animation: iconBounce 2s infinite;
+}
+
+.icon-rotate {
+    animation: iconRotate 3s infinite linear;
+}
+
+.icon-pulse {
+    animation: iconPulse 1.5s infinite;
+}
+
+.icon-shake:hover {
+    animation: iconShake 0.5s ease;
+}
+
+/* ===== Анимации для границ ===== */
+@keyframes borderPulse {
+    0%, 100% {
+        border-color: var(--accent-primary);
+        box-shadow: 0 0 20px var(--accent-glow);
+    }
+    50% {
+        border-color: var(--accent-secondary);
+        box-shadow: 0 0 40px var(--accent-glow);
+    }
+}
+
+@keyframes borderGlow {
+    0%, 100% {
+        box-shadow: 0 0 20px var(--accent-glow);
+    }
+    50% {
+        box-shadow: 0 0 40px var(--accent-glow), 0 0 60px var(--accent-primary);
+    }
+}
+
+.border-pulse {
+    animation: borderPulse 2s infinite;
+}
+
+.border-glow {
+    animation: borderGlow 3s infinite;
+}
+
+/* ===== Анимации для скролла ===== */
+@keyframes scrollIndicator {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    50% {
+        opacity: 0.5;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.scroll-indicator {
+    animation: scrollIndicator 2s infinite;
+}
+
+/* ===== Анимации для прелоадера ===== */
+@keyframes preloaderFadeOut {
+    from {
+        opacity: 1;
+        visibility: visible;
+    }
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes preloaderSpin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.preloader-fade-out {
+    animation: preloaderFadeOut 0.5s ease forwards;
+}
+
+.preloader-spin {
+    animation: preloaderSpin 1s infinite linear;
+}
+
+/* ===== Анимации для ленивой загрузки ===== */
+@keyframes lazyLoad {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.lazy-load {
+    animation: lazyLoad 0.5s ease forwards;
+}
+
+/* ===== Анимации для галереи ===== */
+@keyframes galleryZoom {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.1);
+    }
+}
+
+@keyframes galleryBlur {
+    from {
+        filter: blur(0);
+    }
+    to {
+        filter: blur(5px);
+    }
+}
+
+.gallery-zoom:hover {
+    animation: galleryZoom 0.3s ease forwards;
+}
+
+.gallery-blur:hover {
+    animation: galleryBlur 0.3s ease forwards;
+}
+
+/* ===== Анимации для переключения тем ===== */
+@keyframes themeTransition {
+    from {
+        filter: brightness(1);
+    }
+    to {
+        filter: brightness(0.9);
+    }
+}
+
+.theme-transition {
+    animation: themeTransition 0.3s ease;
+}
+
+/* ===== Медиа-запросы для анимаций ===== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .fade-in-left,
+    .fade-in-right,
+    .slide-in-left,
+    .slide-in-right {
+        animation-name: fadeInUp;
+    }
+}
